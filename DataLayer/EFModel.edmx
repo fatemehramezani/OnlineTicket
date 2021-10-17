@@ -1,0 +1,1558 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="DatabaseModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Advertise">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="64" Nullable="false" />
+          <Property Name="Link" Type="nvarchar" MaxLength="250" />
+          <Property Name="ImageURL" Type="nvarchar" MaxLength="256" />
+        </EntityType>
+        <EntityType Name="Application">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="256" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="256" />
+        </EntityType>
+        <EntityType Name="Buyer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="BuyTicket">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ShowTimeId" Type="int" Nullable="false" />
+          <Property Name="ChairId" Type="int" Nullable="false" />
+          <Property Name="BuyerId" Type="int" Nullable="false" />
+          <Property Name="DateShopping" Type="datetime" Nullable="false" />
+          <Property Name="TicketStatusId" Type="tinyint" Nullable="false" />
+          <Property Name="TrackingCode" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Price" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Chair">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Row" Type="int" Nullable="false" />
+          <Property Name="Column" Type="int" Nullable="false" />
+          <Property Name="HallPartId" Type="int" Nullable="false" />
+          <Property Name="Number" Type="nvarchar" MaxLength="32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Concert">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ConcertTitle" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="HallId" Type="int" Nullable="false" />
+          <Property Name="SingerId" Type="int" />
+          <Property Name="StartDate" Type="datetime" />
+          <Property Name="EndDate" Type="datetime" />
+          <Property Name="PosterURL" Type="nvarchar" MaxLength="256" />
+          <Property Name="IsTeater" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ConcertPrices">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ConcertId" Type="int" Nullable="false" />
+          <Property Name="Prices" Type="money" Nullable="false" />
+          <Property Name="TheRow" Type="tinyint" Nullable="false" />
+          <Property Name="ToRow" Type="tinyint" Nullable="false" />
+          <Property Name="HallPartId" Type="int" />
+        </EntityType>
+        <EntityType Name="ExceptionHandler">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Name="Title" Type="nvarchar" MaxLength="64" Nullable="false" />
+          <Property Name="HelpNote" Type="nvarchar" MaxLength="128" />
+          <Property Name="Message" Type="nvarchar" MaxLength="128" />
+          <Property Name="InnerException" Type="nvarchar" MaxLength="128" />
+          <Property Name="Code" Type="tinyint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Hall">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Address" Type="nvarchar" MaxLength="250" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="11" />
+          <Property Name="Length" Type="nchar" MaxLength="10" />
+          <Property Name="Width" Type="nchar" MaxLength="10" />
+          <Property Name="Latitude" Type="float" />
+          <Property Name="Langitude" Type="float" />
+        </EntityType>
+        <EntityType Name="HallPart">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="64" Nullable="false" />
+          <Property Name="Image" Type="image" />
+          <Property Name="HallId" Type="int" Nullable="false" />
+          <Property Name="RowCount" Type="int" Nullable="false" />
+          <Property Name="ColumnCount" Type="int" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Ticket.dbo.NoSelection' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="NoSelection">
+          <Key>
+            <PropertyRef Name="Title" />
+          </Key>
+          <Property Name="Id" Type="int" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Payment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="BuyerId" Type="int" Nullable="false" />
+          <Property Name="TrackingCode" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="State" Type="nvarchar" MaxLength="64" Nullable="false" />
+          <Property Name="IsSuccess" Type="bit" Nullable="false" />
+          <Property Name="TraceNo" Type="nvarchar" MaxLength="64" Nullable="false" />
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="BankId" Type="int" Nullable="false" />
+          <Property Name="Price" Type="int" />
+          <Property Name="RefNum" Type="nvarchar" MaxLength="64" />
+        </EntityType>
+        <EntityType Name="PriceStyle">
+          <Key>
+            <PropertyRef Name="Price" />
+          </Key>
+          <Property Name="Price" Type="money" Nullable="false" />
+          <Property Name="Color" Type="nchar" MaxLength="6" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Profile">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Name="UserId" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="PropertyNames" Type="nvarchar(max)" />
+          <Property Name="PropertyValuesString" Type="nvarchar(max)" />
+          <Property Name="PropertyValuesBinary" Type="varbinary(max)" />
+          <Property Name="LastUpdatedDate" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Application_Id" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <EntityType Name="ShowTime">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Subject" Type="nvarchar" MaxLength="128" />
+          <Property Name="Start" Type="datetime" Nullable="false" />
+          <Property Name="End" Type="datetime" Nullable="false" />
+          <Property Name="ConcertId" Type="int" Nullable="false" />
+          <Property Name="IsCanceled" Type="bit" Nullable="false" />
+          <Property Name="RecurrenceRule" Type="nvarchar" MaxLength="1024" />
+          <Property Name="RecurrenceParentId" Type="int" />
+        </EntityType>
+        <EntityType Name="Singer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="64" Nullable="false" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="64" Nullable="false" />
+          <Property Name="Mobile" Type="nvarchar" MaxLength="50" />
+          <Property Name="Description" Type="nvarchar" MaxLength="250" />
+          <Property Name="Image" Type="image" />
+          <Property Name="ImageURL" Type="nvarchar" MaxLength="256" />
+        </EntityType>
+        <EntityType Name="TicketStatus">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="tinyint" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="CssClass" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="Name" Type="nvarchar" MaxLength="50" />
+          <Property Name="CreationDate" Type="datetime" />
+          <Property Name="Username" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Password" Type="nvarchar" MaxLength="100" />
+          <Property Name="PasswordQuestion" Type="nvarchar" MaxLength="255" />
+          <Property Name="PasswordAnswer" Type="nvarchar" MaxLength="255" />
+          <Property Name="IsApproved" Type="bit" Nullable="false" />
+          <Property Name="LastActivityDate" Type="datetime" Nullable="false" />
+          <Property Name="LastLoginDate" Type="datetime" />
+          <Property Name="LastPasswordChangedDate" Type="datetime" />
+          <Property Name="IsOnline" Type="bit" />
+          <Property Name="IsLockedOut" Type="bit" Nullable="false" />
+          <Property Name="LastLockedOutDate" Type="datetime" />
+          <Property Name="FailedPasswordAttemptCount" Type="int" />
+          <Property Name="FailedPasswordAttemptWindowStart" Type="datetime" />
+          <Property Name="FailedPasswordAnswerAttemptCount" Type="int" />
+          <Property Name="FailedPasswordAnswerAttemptWindowStart" Type="datetime" />
+          <Property Name="LastModified" Type="datetime" />
+          <Property Name="Comment" Type="nvarchar" MaxLength="255" />
+          <Property Name="IsAnonymous" Type="bit" Nullable="false" />
+          <Property Name="Application_Id" Type="uniqueidentifier" />
+          <Property Name="Mobile" Type="nvarchar" MaxLength="11" />
+          <Property Name="Phone" Type="nvarchar" MaxLength="11" />
+        </EntityType>
+        <EntityType Name="UsersInRole">
+          <Key>
+            <PropertyRef Name="Role_Id" />
+            <PropertyRef Name="User_Id" />
+          </Key>
+          <Property Name="Role_Id" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="User_Id" Type="uniqueidentifier" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Ticket.admin.Ticket' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="Ticket">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="DateShopping" />
+            <PropertyRef Name="TrackingCode" />
+            <PropertyRef Name="BuyerId" />
+            <PropertyRef Name="TicketStatusId" />
+            <PropertyRef Name="ChairId" />
+          </Key>
+          <Property Name="TicketStatusTitle" Type="nvarchar" MaxLength="50" />
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="DateShopping" Type="datetime" Nullable="false" />
+          <Property Name="TrackingCode" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="Subject" Type="nvarchar" MaxLength="128" />
+          <Property Name="ShowTimeId" Type="int" />
+          <Property Name="Start" Type="datetime" />
+          <Property Name="End" Type="datetime" />
+          <Property Name="ConcertTitle" Type="nvarchar" MaxLength="50" />
+          <Property Name="StartDate" Type="datetime" />
+          <Property Name="EndDate" Type="datetime" />
+          <Property Name="HallName" Type="nvarchar" MaxLength="100" />
+          <Property Name="SingerFirstName" Type="nvarchar" MaxLength="64" />
+          <Property Name="SingerLastName" Type="nvarchar" MaxLength="64" />
+          <Property Name="UserFirstName" Type="nvarchar" MaxLength="50" />
+          <Property Name="UserLastName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Row" Type="int" />
+          <Property Name="Column" Type="int" />
+          <Property Name="Number" Type="nvarchar" MaxLength="32" />
+          <Property Name="BuyerId" Type="int" Nullable="false" />
+          <Property Name="TimeShopping" Type="int" />
+          <Property Name="TicketStatusId" Type="tinyint" Nullable="false" />
+          <Property Name="ChairId" Type="int" Nullable="false" />
+          <Property Name="ConcertId" Type="int" />
+          <Property Name="PersianStart" Type="nvarchar" MaxLength="50" />
+          <Property Name="PersianEnd" Type="nvarchar" MaxLength="50" />
+          <Property Name="PersianDateShopping" Type="nvarchar" MaxLength="50" />
+          <Property Name="Price" Type="int" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Ticket.dbo.ConcertShowTime' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ConcertShowTime">
+          <Key>
+            <PropertyRef Name="ConcertTitle" />
+            <PropertyRef Name="HallName" />
+            <PropertyRef Name="ShowTimeId" />
+            <PropertyRef Name="ConcertId" />
+          </Key>
+          <Property Name="ConcertTitle" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="HallName" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="Subject" Type="nvarchar" MaxLength="128" />
+          <Property Name="ShowTimeId" Type="int" Nullable="false" />
+          <Property Name="ConcertId" Type="int" Nullable="false" />
+          <Property Name="Date" Type="nvarchar" MaxLength="50" />
+          <Property Name="Time" Type="nvarchar" MaxLength="21" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Ticket.dbo.ConcertTicket' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="ConcertTicket">
+          <Key>
+            <PropertyRef Name="Email" />
+            <PropertyRef Name="TicketCount" />
+            <PropertyRef Name="BankName" />
+            <PropertyRef Name="TrackingCode" />
+            <PropertyRef Name="ShowTimeId" />
+            <PropertyRef Name="BuyerId" />
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="FirstName" Type="nvarchar" MaxLength="50" />
+          <Property Name="LastName" Type="nvarchar" MaxLength="50" />
+          <Property Name="Mobile" Type="nvarchar" MaxLength="11" />
+          <Property Name="Email" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="TicketCount" Type="int" Nullable="false" />
+          <Property Name="ticketSum" Type="int" />
+          <Property Name="Price" Type="int" />
+          <Property Name="Date" Type="nvarchar" MaxLength="50" />
+          <Property Name="Time" Type="nvarchar" MaxLength="21" />
+          <Property Name="BankName" Type="nvarchar" MaxLength="150" Nullable="false" />
+          <Property Name="TrackingCode" Type="nvarchar" MaxLength="20" Nullable="false" />
+          <Property Name="ShowTimeId" Type="int" Nullable="false" />
+          <Property Name="BuyerId" Type="int" Nullable="false" />
+          <Property Name="Id" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Buyer_Buyer">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Buyer" Type="Self.Buyer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Buyer">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Chair_HallPart">
+          <End Role="HallPart" Type="Self.HallPart" Multiplicity="1" />
+          <End Role="Chair" Type="Self.Chair" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HallPart">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Chair">
+              <PropertyRef Name="HallPartId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Concert_Hall">
+          <End Role="Hall" Type="Self.Hall" Multiplicity="1" />
+          <End Role="Concert" Type="Self.Concert" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hall">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Concert">
+              <PropertyRef Name="HallId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Concert_Singer">
+          <End Role="Singer" Type="Self.Singer" Multiplicity="0..1" />
+          <End Role="Concert" Type="Self.Concert" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Singer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Concert">
+              <PropertyRef Name="SingerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ConcertPrices_Concert">
+          <End Role="Concert" Type="Self.Concert" Multiplicity="1" />
+          <End Role="ConcertPrices" Type="Self.ConcertPrices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Concert">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ConcertPrices">
+              <PropertyRef Name="ConcertId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ConcertPrices_HallPart">
+          <End Role="HallPart" Type="Self.HallPart" Multiplicity="0..1" />
+          <End Role="ConcertPrices" Type="Self.ConcertPrices" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HallPart">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ConcertPrices">
+              <PropertyRef Name="HallPartId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HallPart_Hall">
+          <End Role="Hall" Type="Self.Hall" Multiplicity="1" />
+          <End Role="HallPart" Type="Self.HallPart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hall">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="HallPart">
+              <PropertyRef Name="HallId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Profile_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="Profile" Type="Self.Profile" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Profile">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Role_Application">
+          <End Role="Application" Type="Self.Application" Multiplicity="1" />
+          <End Role="Role" Type="Self.Role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Application">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Role">
+              <PropertyRef Name="Application_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ShowTime_Concert">
+          <End Role="Concert" Type="Self.Concert" Multiplicity="1" />
+          <End Role="ShowTime" Type="Self.ShowTime" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Concert">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ShowTime">
+              <PropertyRef Name="ConcertId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Application">
+          <End Role="Application" Type="Self.Application" Multiplicity="0..1" />
+          <End Role="User" Type="Self.User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Application">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="Application_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsersInRole_Role">
+          <End Role="Role" Type="Self.Role" Multiplicity="1" />
+          <End Role="UsersInRole" Type="Self.UsersInRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Role">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UsersInRole">
+              <PropertyRef Name="Role_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_UsersInRole_User">
+          <End Role="User" Type="Self.User" Multiplicity="1" />
+          <End Role="UsersInRole" Type="Self.UsersInRole" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="UsersInRole">
+              <PropertyRef Name="User_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="DatabaseModelStoreContainer">
+          <EntitySet Name="Advertise" EntityType="Self.Advertise" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Application" EntityType="Self.Application" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Buyer" EntityType="Self.Buyer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="BuyTicket" EntityType="Self.BuyTicket" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Chair" EntityType="Self.Chair" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Concert" EntityType="Self.Concert" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ConcertPrices" EntityType="Self.ConcertPrices" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ExceptionHandler" EntityType="Self.ExceptionHandler" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Hall" EntityType="Self.Hall" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="HallPart" EntityType="Self.HallPart" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Payment" EntityType="Self.Payment" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="PriceStyle" EntityType="Self.PriceStyle" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Profile" EntityType="Self.Profile" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Role" EntityType="Self.Role" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ShowTime" EntityType="Self.ShowTime" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Singer" EntityType="Self.Singer" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TicketStatus" EntityType="Self.TicketStatus" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="User" EntityType="Self.User" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="UsersInRole" EntityType="Self.UsersInRole" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NoSelection" EntityType="Self.NoSelection" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[NoSelection].[Id] AS [Id], 
+[NoSelection].[Title] AS [Title]
+FROM [dbo].[NoSelection] AS [NoSelection]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="Ticket" EntityType="Self.Ticket" store:Type="Views" store:Schema="admin">
+            <DefiningQuery>SELECT 
+[Ticket].[TicketStatusTitle] AS [TicketStatusTitle], 
+[Ticket].[Id] AS [Id], 
+[Ticket].[DateShopping] AS [DateShopping], 
+[Ticket].[TrackingCode] AS [TrackingCode], 
+[Ticket].[Subject] AS [Subject], 
+[Ticket].[ShowTimeId] AS [ShowTimeId], 
+[Ticket].[Start] AS [Start], 
+[Ticket].[End] AS [End], 
+[Ticket].[ConcertTitle] AS [ConcertTitle], 
+[Ticket].[StartDate] AS [StartDate], 
+[Ticket].[EndDate] AS [EndDate], 
+[Ticket].[HallName] AS [HallName], 
+[Ticket].[SingerFirstName] AS [SingerFirstName], 
+[Ticket].[SingerLastName] AS [SingerLastName], 
+[Ticket].[UserFirstName] AS [UserFirstName], 
+[Ticket].[UserLastName] AS [UserLastName], 
+[Ticket].[Row] AS [Row], 
+[Ticket].[Column] AS [Column], 
+[Ticket].[Number] AS [Number], 
+[Ticket].[BuyerId] AS [BuyerId], 
+[Ticket].[TimeShopping] AS [TimeShopping], 
+[Ticket].[TicketStatusId] AS [TicketStatusId], 
+[Ticket].[ChairId] AS [ChairId], 
+[Ticket].[ConcertId] AS [ConcertId], 
+[Ticket].[PersianStart] AS [PersianStart], 
+[Ticket].[PersianEnd] AS [PersianEnd], 
+[Ticket].[PersianDateShopping] AS [PersianDateShopping], 
+[Ticket].[Price] AS [Price]
+FROM [admin].[Ticket] AS [Ticket]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ConcertShowTime" EntityType="Self.ConcertShowTime" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[ConcertShowTime].[ConcertTitle] AS [ConcertTitle], 
+[ConcertShowTime].[HallName] AS [HallName], 
+[ConcertShowTime].[Subject] AS [Subject], 
+[ConcertShowTime].[ShowTimeId] AS [ShowTimeId], 
+[ConcertShowTime].[ConcertId] AS [ConcertId], 
+[ConcertShowTime].[Date] AS [Date], 
+[ConcertShowTime].[Time] AS [Time]
+FROM [dbo].[ConcertShowTime] AS [ConcertShowTime]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="ConcertTicket" EntityType="Self.ConcertTicket" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+[ConcertTicket].[FirstName] AS [FirstName], 
+[ConcertTicket].[LastName] AS [LastName], 
+[ConcertTicket].[Mobile] AS [Mobile], 
+[ConcertTicket].[Email] AS [Email], 
+[ConcertTicket].[TicketCount] AS [TicketCount], 
+[ConcertTicket].[ticketSum] AS [ticketSum], 
+[ConcertTicket].[Price] AS [Price], 
+[ConcertTicket].[Date] AS [Date], 
+[ConcertTicket].[Time] AS [Time], 
+[ConcertTicket].[BankName] AS [BankName], 
+[ConcertTicket].[TrackingCode] AS [TrackingCode], 
+[ConcertTicket].[ShowTimeId] AS [ShowTimeId], 
+[ConcertTicket].[BuyerId] AS [BuyerId], 
+[ConcertTicket].[Id] AS [Id]
+FROM [dbo].[ConcertTicket] AS [ConcertTicket]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_Buyer_Buyer" Association="Self.FK_Buyer_Buyer">
+            <End Role="User" EntitySet="User" />
+            <End Role="Buyer" EntitySet="Buyer" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Chair_HallPart" Association="Self.FK_Chair_HallPart">
+            <End Role="HallPart" EntitySet="HallPart" />
+            <End Role="Chair" EntitySet="Chair" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Concert_Hall" Association="Self.FK_Concert_Hall">
+            <End Role="Hall" EntitySet="Hall" />
+            <End Role="Concert" EntitySet="Concert" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Concert_Singer" Association="Self.FK_Concert_Singer">
+            <End Role="Singer" EntitySet="Singer" />
+            <End Role="Concert" EntitySet="Concert" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ConcertPrices_Concert" Association="Self.FK_ConcertPrices_Concert">
+            <End Role="Concert" EntitySet="Concert" />
+            <End Role="ConcertPrices" EntitySet="ConcertPrices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ConcertPrices_HallPart" Association="Self.FK_ConcertPrices_HallPart">
+            <End Role="HallPart" EntitySet="HallPart" />
+            <End Role="ConcertPrices" EntitySet="ConcertPrices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HallPart_Hall" Association="Self.FK_HallPart_Hall">
+            <End Role="Hall" EntitySet="Hall" />
+            <End Role="HallPart" EntitySet="HallPart" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Profile_User" Association="Self.FK_Profile_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="Profile" EntitySet="Profile" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Role_Application" Association="Self.FK_Role_Application">
+            <End Role="Application" EntitySet="Application" />
+            <End Role="Role" EntitySet="Role" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ShowTime_Concert" Association="Self.FK_ShowTime_Concert">
+            <End Role="Concert" EntitySet="Concert" />
+            <End Role="ShowTime" EntitySet="ShowTime" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Application" Association="Self.FK_User_Application">
+            <End Role="Application" EntitySet="Application" />
+            <End Role="User" EntitySet="User" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsersInRole_Role" Association="Self.FK_UsersInRole_Role">
+            <End Role="Role" EntitySet="Role" />
+            <End Role="UsersInRole" EntitySet="UsersInRole" />
+          </AssociationSet>
+          <AssociationSet Name="FK_UsersInRole_User" Association="Self.FK_UsersInRole_User">
+            <End Role="User" EntitySet="User" />
+            <End Role="UsersInRole" EntitySet="UsersInRole" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DatabaseModel" Alias="Self" p1:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:p1="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="DatabaseEntities" p1:LazyLoadingEnabled="true">
+          <EntitySet Name="Applications" EntityType="DatabaseModel.Application" />
+          <EntitySet Name="Buyers" EntityType="DatabaseModel.Buyer" />
+          <EntitySet Name="BuyTickets" EntityType="DatabaseModel.BuyTicket" />
+          <EntitySet Name="Chairs" EntityType="DatabaseModel.Chair" />
+          <EntitySet Name="Concerts" EntityType="DatabaseModel.Concert" />
+          <EntitySet Name="ConcertPrices" EntityType="DatabaseModel.ConcertPrice" />
+          <EntitySet Name="ExceptionHandlers" EntityType="DatabaseModel.ExceptionHandler" />
+          <EntitySet Name="Halls" EntityType="DatabaseModel.Hall" />
+          <EntitySet Name="HallParts" EntityType="DatabaseModel.HallPart" />
+          <EntitySet Name="PriceStyles" EntityType="DatabaseModel.PriceStyle" />
+          <EntitySet Name="Profiles" EntityType="DatabaseModel.Profile" />
+          <EntitySet Name="Roles" EntityType="DatabaseModel.Role" />
+          <EntitySet Name="ShowTimes" EntityType="DatabaseModel.ShowTime" />
+          <EntitySet Name="Singers" EntityType="DatabaseModel.Singer" />
+          <EntitySet Name="TicketStatus" EntityType="DatabaseModel.TicketStatu" />
+          <EntitySet Name="Users" EntityType="DatabaseModel.User" />
+          <EntitySet Name="Tickets" EntityType="DatabaseModel.Ticket" />
+          <AssociationSet Name="FK_Role_Application" Association="DatabaseModel.FK_Role_Application">
+            <End Role="Application" EntitySet="Applications" />
+            <End Role="Role" EntitySet="Roles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_User_Application" Association="DatabaseModel.FK_User_Application">
+            <End Role="Application" EntitySet="Applications" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Buyer_Buyer" Association="DatabaseModel.FK_Buyer_Buyer">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Buyer" EntitySet="Buyers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BuyTicket_Buyer" Association="DatabaseModel.FK_BuyTicket_Buyer">
+            <End Role="Buyer" EntitySet="Buyers" />
+            <End Role="BuyTicket" EntitySet="BuyTickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BuyTicket_Chair" Association="DatabaseModel.FK_BuyTicket_Chair">
+            <End Role="Chair" EntitySet="Chairs" />
+            <End Role="BuyTicket" EntitySet="BuyTickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BuyTicket_ShowTime" Association="DatabaseModel.FK_BuyTicket_ShowTime">
+            <End Role="ShowTime" EntitySet="ShowTimes" />
+            <End Role="BuyTicket" EntitySet="BuyTickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_BuyTicket_TicketStatus" Association="DatabaseModel.FK_BuyTicket_TicketStatus">
+            <End Role="TicketStatu" EntitySet="TicketStatus" />
+            <End Role="BuyTicket" EntitySet="BuyTickets" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Chair_HallPart" Association="DatabaseModel.FK_Chair_HallPart">
+            <End Role="HallPart" EntitySet="HallParts" />
+            <End Role="Chair" EntitySet="Chairs" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Concert_Hall" Association="DatabaseModel.FK_Concert_Hall">
+            <End Role="Hall" EntitySet="Halls" />
+            <End Role="Concert" EntitySet="Concerts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Concert_Singer" Association="DatabaseModel.FK_Concert_Singer">
+            <End Role="Singer" EntitySet="Singers" />
+            <End Role="Concert" EntitySet="Concerts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ConcertPrices_Concert" Association="DatabaseModel.FK_ConcertPrices_Concert">
+            <End Role="Concert" EntitySet="Concerts" />
+            <End Role="ConcertPrice" EntitySet="ConcertPrices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ShowTime_Concert" Association="DatabaseModel.FK_ShowTime_Concert">
+            <End Role="Concert" EntitySet="Concerts" />
+            <End Role="ShowTime" EntitySet="ShowTimes" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ConcertPrices_HallPart" Association="DatabaseModel.FK_ConcertPrices_HallPart">
+            <End Role="HallPart" EntitySet="HallParts" />
+            <End Role="ConcertPrice" EntitySet="ConcertPrices" />
+          </AssociationSet>
+          <AssociationSet Name="FK_HallPart_Hall" Association="DatabaseModel.FK_HallPart_Hall">
+            <End Role="Hall" EntitySet="Halls" />
+            <End Role="HallPart" EntitySet="HallParts" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Profile_User" Association="DatabaseModel.FK_Profile_User">
+            <End Role="User" EntitySet="Users" />
+            <End Role="Profile" EntitySet="Profiles" />
+          </AssociationSet>
+          <AssociationSet Name="UsersInRole" Association="DatabaseModel.UsersInRole">
+            <End Role="Role" EntitySet="Roles" />
+            <End Role="User" EntitySet="Users" />
+          </AssociationSet>
+          <EntitySet Name="NoSelections" EntityType="DatabaseModel.NoSelection" />
+          <EntitySet Name="Advertises" EntityType="DatabaseModel.Advertise" />
+          <EntitySet Name="Payments" EntityType="DatabaseModel.Payment" />
+          <EntitySet Name="ConcertShowTimes" EntityType="DatabaseModel.ConcertShowTime" />
+          <EntitySet Name="ConcertTickets" EntityType="DatabaseModel.ConcertTicket" />
+        </EntityContainer>
+        <EntityType Name="Application">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Guid" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Description" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Roles" Relationship="DatabaseModel.FK_Role_Application" FromRole="Application" ToRole="Role" />
+          <NavigationProperty Name="Users" Relationship="DatabaseModel.FK_User_Application" FromRole="Application" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Buyer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Guid" Name="UserId" Nullable="false" />
+          <NavigationProperty Name="User" Relationship="DatabaseModel.FK_Buyer_Buyer" FromRole="Buyer" ToRole="User" />
+          <NavigationProperty Name="BuyTickets" Relationship="DatabaseModel.FK_BuyTicket_Buyer" FromRole="Buyer" ToRole="BuyTicket" />
+        </EntityType>
+        <EntityType Name="BuyTicket">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="ShowTimeId" Nullable="false" />
+          <Property Type="Int32" Name="ChairId" Nullable="false" />
+          <Property Type="Int32" Name="BuyerId" Nullable="false" />
+          <Property Type="DateTime" Name="DateShopping" Nullable="false" Precision="3" />
+          <Property Type="Byte" Name="TicketStatusId" Nullable="false" />
+          <Property Type="String" Name="TrackingCode" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Buyer" Relationship="DatabaseModel.FK_BuyTicket_Buyer" FromRole="BuyTicket" ToRole="Buyer" />
+          <NavigationProperty Name="Chair" Relationship="DatabaseModel.FK_BuyTicket_Chair" FromRole="BuyTicket" ToRole="Chair" />
+          <NavigationProperty Name="ShowTime" Relationship="DatabaseModel.FK_BuyTicket_ShowTime" FromRole="BuyTicket" ToRole="ShowTime" />
+          <NavigationProperty Name="TicketStatu" Relationship="DatabaseModel.FK_BuyTicket_TicketStatus" FromRole="BuyTicket" ToRole="TicketStatu" />
+          <Property Type="Int32" Name="Price" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Chair">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="Row" Nullable="false" />
+          <Property Type="Int32" Name="Column" Nullable="false" />
+          <Property Type="Int32" Name="HallPartId" Nullable="false" />
+          <Property Type="String" Name="Number" Nullable="false" MaxLength="32" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="BuyTickets" Relationship="DatabaseModel.FK_BuyTicket_Chair" FromRole="Chair" ToRole="BuyTicket" />
+          <NavigationProperty Name="HallPart" Relationship="DatabaseModel.FK_Chair_HallPart" FromRole="Chair" ToRole="HallPart" />
+        </EntityType>
+        <EntityType Name="Concert">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="ConcertTitle" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="HallId" Nullable="false" />
+          <Property Type="Int32" Name="SingerId" />
+          <Property Type="DateTime" Name="StartDate" Precision="3" />
+          <Property Type="DateTime" Name="EndDate" Precision="3" />
+          <Property Type="String" Name="PosterURL" MaxLength="256" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="IsTeater" Nullable="false" />
+          <NavigationProperty Name="Hall" Relationship="DatabaseModel.FK_Concert_Hall" FromRole="Concert" ToRole="Hall" />
+          <NavigationProperty Name="Singer" Relationship="DatabaseModel.FK_Concert_Singer" FromRole="Concert" ToRole="Singer" />
+          <NavigationProperty Name="ConcertPrices" Relationship="DatabaseModel.FK_ConcertPrices_Concert" FromRole="Concert" ToRole="ConcertPrice" />
+          <NavigationProperty Name="ShowTimes" Relationship="DatabaseModel.FK_ShowTime_Concert" FromRole="Concert" ToRole="ShowTime" />
+        </EntityType>
+        <EntityType Name="ConcertPrice">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="ConcertId" Nullable="false" />
+          <Property Type="Decimal" Name="Prices" Nullable="false" Precision="19" Scale="4" />
+          <Property Type="Byte" Name="TheRow" Nullable="false" />
+          <Property Type="Byte" Name="ToRow" Nullable="false" />
+          <Property Type="Int32" Name="HallPartId" />
+          <NavigationProperty Name="Concert" Relationship="DatabaseModel.FK_ConcertPrices_Concert" FromRole="ConcertPrice" ToRole="Concert" />
+          <NavigationProperty Name="HallPart" Relationship="DatabaseModel.FK_ConcertPrices_HallPart" FromRole="ConcertPrice" ToRole="HallPart" />
+        </EntityType>
+        <EntityType Name="ExceptionHandler">
+          <Key>
+            <PropertyRef Name="Code" />
+          </Key>
+          <Property Type="String" Name="Title" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="HelpNote" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Message" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="InnerException" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Type="Byte" Name="Code" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Hall">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Address" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Phone" MaxLength="11" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Length" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Type="String" Name="Width" MaxLength="10" FixedLength="true" Unicode="true" />
+          <Property Type="Double" Name="Latitude" />
+          <Property Type="Double" Name="Langitude" />
+          <NavigationProperty Name="Concerts" Relationship="DatabaseModel.FK_Concert_Hall" FromRole="Hall" ToRole="Concert" />
+          <NavigationProperty Name="HallParts" Relationship="DatabaseModel.FK_HallPart_Hall" FromRole="Hall" ToRole="HallPart" />
+        </EntityType>
+        <EntityType Name="HallPart">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Type="Binary" Name="Image" MaxLength="Max" FixedLength="false" />
+          <Property Type="Int32" Name="HallId" Nullable="false" />
+          <Property Type="Int32" Name="RowCount" Nullable="false" />
+          <Property Type="Int32" Name="ColumnCount" Nullable="false" />
+          <NavigationProperty Name="Chairs" Relationship="DatabaseModel.FK_Chair_HallPart" FromRole="HallPart" ToRole="Chair" />
+          <NavigationProperty Name="ConcertPrices" Relationship="DatabaseModel.FK_ConcertPrices_HallPart" FromRole="HallPart" ToRole="ConcertPrice" />
+          <NavigationProperty Name="Hall" Relationship="DatabaseModel.FK_HallPart_Hall" FromRole="HallPart" ToRole="Hall" />
+        </EntityType>
+        <EntityType Name="PriceStyle">
+          <Key>
+            <PropertyRef Name="Price" />
+          </Key>
+          <Property Type="Decimal" Name="Price" Nullable="false" Precision="19" Scale="4" />
+          <Property Type="String" Name="Color" Nullable="false" MaxLength="6" FixedLength="true" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Profile">
+          <Key>
+            <PropertyRef Name="UserId" />
+          </Key>
+          <Property Type="Guid" Name="UserId" Nullable="false" />
+          <Property Type="String" Name="PropertyNames" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="PropertyValuesString" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Type="Binary" Name="PropertyValuesBinary" MaxLength="Max" FixedLength="false" />
+          <Property Type="DateTime" Name="LastUpdatedDate" Nullable="false" Precision="3" />
+          <NavigationProperty Name="User" Relationship="DatabaseModel.FK_Profile_User" FromRole="Profile" ToRole="User" />
+        </EntityType>
+        <EntityType Name="Role">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Guid" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Guid" Name="Application_Id" Nullable="false" />
+          <NavigationProperty Name="Application" Relationship="DatabaseModel.FK_Role_Application" FromRole="Role" ToRole="Application" />
+          <NavigationProperty Name="Users" Relationship="DatabaseModel.UsersInRole" FromRole="Role" ToRole="User" />
+        </EntityType>
+        <EntityType Name="ShowTime">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Subject" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="Start" Nullable="false" Precision="3" />
+          <Property Type="DateTime" Name="End" Nullable="false" Precision="3" />
+          <Property Type="Int32" Name="ConcertId" Nullable="false" />
+          <Property Type="Boolean" Name="IsCanceled" Nullable="false" />
+          <Property Type="String" Name="RecurrenceRule" MaxLength="1024" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="RecurrenceParentId" />
+          <NavigationProperty Name="BuyTickets" Relationship="DatabaseModel.FK_BuyTicket_ShowTime" FromRole="ShowTime" ToRole="BuyTicket" />
+          <NavigationProperty Name="Concert" Relationship="DatabaseModel.FK_ShowTime_Concert" FromRole="ShowTime" ToRole="Concert" />
+        </EntityType>
+        <EntityType Name="Singer">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="FirstName" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="LastName" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Mobile" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Description" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Type="Binary" Name="Image" MaxLength="Max" FixedLength="false" />
+          <Property Type="String" Name="ImageURL" MaxLength="256" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Concerts" Relationship="DatabaseModel.FK_Concert_Singer" FromRole="Singer" ToRole="Concert" />
+        </EntityType>
+        <EntityType Name="TicketStatu">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Byte" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Title" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="CssClass" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="BuyTickets" Relationship="DatabaseModel.FK_BuyTicket_TicketStatus" FromRole="TicketStatu" ToRole="BuyTicket" />
+        </EntityType>
+        <EntityType Name="User">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Guid" Name="Id" Nullable="false" />
+          <Property Type="String" Name="Name" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="CreationDate" Precision="3" />
+          <Property Type="String" Name="Username" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="FirstName" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="LastName" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Password" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="PasswordQuestion" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="PasswordAnswer" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="IsApproved" Nullable="false" />
+          <Property Type="DateTime" Name="LastActivityDate" Nullable="false" Precision="3" />
+          <Property Type="DateTime" Name="LastLoginDate" Precision="3" />
+          <Property Type="DateTime" Name="LastPasswordChangedDate" Precision="3" />
+          <Property Type="Boolean" Name="IsOnline" />
+          <Property Type="Boolean" Name="IsLockedOut" Nullable="false" />
+          <Property Type="DateTime" Name="LastLockedOutDate" Precision="3" />
+          <Property Type="Int32" Name="FailedPasswordAttemptCount" />
+          <Property Type="DateTime" Name="FailedPasswordAttemptWindowStart" Precision="3" />
+          <Property Type="Int32" Name="FailedPasswordAnswerAttemptCount" />
+          <Property Type="DateTime" Name="FailedPasswordAnswerAttemptWindowStart" Precision="3" />
+          <Property Type="DateTime" Name="LastModified" Precision="3" />
+          <Property Type="String" Name="Comment" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Type="Boolean" Name="IsAnonymous" Nullable="false" />
+          <Property Type="Guid" Name="Application_Id" />
+          <Property Type="String" Name="Mobile" MaxLength="11" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Phone" MaxLength="11" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Application" Relationship="DatabaseModel.FK_User_Application" FromRole="User" ToRole="Application" />
+          <NavigationProperty Name="Buyers" Relationship="DatabaseModel.FK_Buyer_Buyer" FromRole="User" ToRole="Buyer" />
+          <NavigationProperty Name="Profile" Relationship="DatabaseModel.FK_Profile_User" FromRole="User" ToRole="Profile" />
+          <NavigationProperty Name="Roles" Relationship="DatabaseModel.UsersInRole" FromRole="User" ToRole="Role" />
+        </EntityType>
+        <EntityType Name="Ticket">
+          <Key>
+            <PropertyRef Name="Id" />
+            <PropertyRef Name="DateShopping" />
+            <PropertyRef Name="TrackingCode" />
+            <PropertyRef Name="BuyerId" />
+            <PropertyRef Name="TicketStatusId" />
+            <PropertyRef Name="ChairId" />
+          </Key>
+          <Property Type="String" Name="TicketStatusTitle" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="Id" Nullable="false" />
+          <Property Type="DateTime" Name="DateShopping" Nullable="false" Precision="3" />
+          <Property Type="String" Name="TrackingCode" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Subject" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="ShowTimeId" />
+          <Property Type="DateTime" Name="Start" Precision="3" />
+          <Property Type="DateTime" Name="End" Precision="3" />
+          <Property Type="String" Name="ConcertTitle" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="DateTime" Name="StartDate" Precision="3" />
+          <Property Type="DateTime" Name="EndDate" Precision="3" />
+          <Property Type="String" Name="HallName" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="SingerFirstName" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="SingerLastName" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="UserFirstName" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="UserLastName" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="Row" />
+          <Property Type="Int32" Name="Column" />
+          <Property Type="String" Name="Number" MaxLength="32" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="BuyerId" Nullable="false" />
+          <Property Type="Int32" Name="TimeShopping" />
+          <Property Type="Byte" Name="TicketStatusId" Nullable="false" />
+          <Property Type="Int32" Name="ChairId" Nullable="false" />
+          <Property Type="Int32" Name="ConcertId" />
+          <Property Type="String" Name="PersianStart" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="PersianEnd" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="PersianDateShopping" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Price" Type="Int32" />
+        </EntityType>
+        <Association Name="FK_Role_Application">
+          <End Type="DatabaseModel.Application" Role="Application" Multiplicity="1" />
+          <End Type="DatabaseModel.Role" Role="Role" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Application">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Role">
+              <PropertyRef Name="Application_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_User_Application">
+          <End Type="DatabaseModel.Application" Role="Application" Multiplicity="0..1" />
+          <End Type="DatabaseModel.User" Role="User" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Application">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="User">
+              <PropertyRef Name="Application_Id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Buyer_Buyer">
+          <End Type="DatabaseModel.User" Role="User" Multiplicity="1" />
+          <End Type="DatabaseModel.Buyer" Role="Buyer" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Buyer">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BuyTicket_Buyer">
+          <End Type="DatabaseModel.Buyer" Role="Buyer" Multiplicity="1" />
+          <End Type="DatabaseModel.BuyTicket" Role="BuyTicket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Buyer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BuyTicket">
+              <PropertyRef Name="BuyerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BuyTicket_Chair">
+          <End Type="DatabaseModel.Chair" Role="Chair" Multiplicity="1" />
+          <End Type="DatabaseModel.BuyTicket" Role="BuyTicket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Chair">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BuyTicket">
+              <PropertyRef Name="ChairId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BuyTicket_ShowTime">
+          <End Type="DatabaseModel.ShowTime" Role="ShowTime" Multiplicity="1" />
+          <End Type="DatabaseModel.BuyTicket" Role="BuyTicket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ShowTime">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BuyTicket">
+              <PropertyRef Name="ShowTimeId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_BuyTicket_TicketStatus">
+          <End Type="DatabaseModel.TicketStatu" Role="TicketStatu" Multiplicity="1" />
+          <End Type="DatabaseModel.BuyTicket" Role="BuyTicket" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TicketStatu">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="BuyTicket">
+              <PropertyRef Name="TicketStatusId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Chair_HallPart">
+          <End Type="DatabaseModel.HallPart" Role="HallPart" Multiplicity="1" />
+          <End Type="DatabaseModel.Chair" Role="Chair" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HallPart">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Chair">
+              <PropertyRef Name="HallPartId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Concert_Hall">
+          <End Type="DatabaseModel.Hall" Role="Hall" Multiplicity="1" />
+          <End Type="DatabaseModel.Concert" Role="Concert" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hall">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Concert">
+              <PropertyRef Name="HallId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Concert_Singer">
+          <End Type="DatabaseModel.Singer" Role="Singer" Multiplicity="0..1" />
+          <End Type="DatabaseModel.Concert" Role="Concert" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Singer">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Concert">
+              <PropertyRef Name="SingerId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ConcertPrices_Concert">
+          <End Type="DatabaseModel.Concert" Role="Concert" Multiplicity="1" />
+          <End Type="DatabaseModel.ConcertPrice" Role="ConcertPrice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Concert">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ConcertPrice">
+              <PropertyRef Name="ConcertId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ShowTime_Concert">
+          <End Type="DatabaseModel.Concert" Role="Concert" Multiplicity="1" />
+          <End Type="DatabaseModel.ShowTime" Role="ShowTime" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Concert">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ShowTime">
+              <PropertyRef Name="ConcertId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ConcertPrices_HallPart">
+          <End Type="DatabaseModel.HallPart" Role="HallPart" Multiplicity="0..1" />
+          <End Type="DatabaseModel.ConcertPrice" Role="ConcertPrice" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="HallPart">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="ConcertPrice">
+              <PropertyRef Name="HallPartId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_HallPart_Hall">
+          <End Type="DatabaseModel.Hall" Role="Hall" Multiplicity="1" />
+          <End Type="DatabaseModel.HallPart" Role="HallPart" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Hall">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="HallPart">
+              <PropertyRef Name="HallId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Profile_User">
+          <End Type="DatabaseModel.User" Role="User" Multiplicity="1" />
+          <End Type="DatabaseModel.Profile" Role="Profile" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="User">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Profile">
+              <PropertyRef Name="UserId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="UsersInRole">
+          <End Type="DatabaseModel.Role" Role="Role" Multiplicity="*" />
+          <End Type="DatabaseModel.User" Role="User" Multiplicity="*" />
+        </Association>
+        <EntityType Name="NoSelection">
+          <Key>
+            <PropertyRef Name="Title" />
+          </Key>
+          <Property Type="Int32" Name="Id" />
+          <Property Type="String" Name="Title" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Advertise">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="Int32" Name="Id" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="Title" Nullable="false" MaxLength="64" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Link" MaxLength="250" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="ImageURL" MaxLength="256" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="Payment">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="BuyerId" Type="Int32" Nullable="false" />
+          <Property Name="TrackingCode" Type="String" MaxLength="20" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Precision="3" Nullable="false" />
+          <Property Name="State" Type="String" MaxLength="64" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="IsSuccess" Type="Boolean" Nullable="false" />
+          <Property Name="TraceNo" Type="String" MaxLength="64" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="BankId" Nullable="false" />
+          <Property Type="Int32" Name="Price" />
+          <Property Name="RefNum" Type="String" MaxLength="64" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ConcertShowTime">
+          <Key>
+            <PropertyRef Name="ConcertTitle" />
+            <PropertyRef Name="HallName" />
+            <PropertyRef Name="ShowTimeId" />
+            <PropertyRef Name="ConcertId" />
+          </Key>
+          <Property Type="String" Name="ConcertTitle" Nullable="false" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="HallName" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Subject" MaxLength="128" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="ShowTimeId" Nullable="false" />
+          <Property Type="Int32" Name="ConcertId" Nullable="false" />
+          <Property Type="String" Name="Date" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Time" MaxLength="21" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="ConcertTicket">
+          <Key>
+            <PropertyRef Name="Email" />
+            <PropertyRef Name="TicketCount" />
+            <PropertyRef Name="BankName" />
+            <PropertyRef Name="TrackingCode" />
+            <PropertyRef Name="ShowTimeId" />
+            <PropertyRef Name="BuyerId" />
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Type="String" Name="FirstName" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="LastName" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Mobile" MaxLength="11" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Email" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="TicketCount" Nullable="false" />
+          <Property Type="Int32" Name="ticketSum" />
+          <Property Type="Int32" Name="Price" />
+          <Property Type="String" Name="Date" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="Time" MaxLength="21" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="BankName" Nullable="false" MaxLength="150" FixedLength="false" Unicode="true" />
+          <Property Type="String" Name="TrackingCode" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+          <Property Type="Int32" Name="ShowTimeId" Nullable="false" />
+          <Property Type="Int32" Name="BuyerId" Nullable="false" />
+          <Property Type="Int32" Name="Id" Nullable="false" />
+        </EntityType>
+        </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DatabaseModelStoreContainer" CdmEntityContainer="DatabaseEntities">
+          <EntitySetMapping Name="Applications">
+            <EntityTypeMapping TypeName="DatabaseModel.Application">
+              <MappingFragment StoreEntitySet="Application">
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Buyers">
+            <EntityTypeMapping TypeName="DatabaseModel.Buyer">
+              <MappingFragment StoreEntitySet="Buyer">
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="BuyTickets">
+            <EntityTypeMapping TypeName="DatabaseModel.BuyTicket">
+              <MappingFragment StoreEntitySet="BuyTicket">
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="TrackingCode" ColumnName="TrackingCode" />
+                <ScalarProperty Name="TicketStatusId" ColumnName="TicketStatusId" />
+                <ScalarProperty Name="DateShopping" ColumnName="DateShopping" />
+                <ScalarProperty Name="BuyerId" ColumnName="BuyerId" />
+                <ScalarProperty Name="ChairId" ColumnName="ChairId" />
+                <ScalarProperty Name="ShowTimeId" ColumnName="ShowTimeId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Chairs">
+            <EntityTypeMapping TypeName="DatabaseModel.Chair">
+              <MappingFragment StoreEntitySet="Chair">
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="HallPartId" ColumnName="HallPartId" />
+                <ScalarProperty Name="Column" ColumnName="Column" />
+                <ScalarProperty Name="Row" ColumnName="Row" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Concerts">
+            <EntityTypeMapping TypeName="DatabaseModel.Concert">
+              <MappingFragment StoreEntitySet="Concert">
+                <ScalarProperty Name="IsTeater" ColumnName="IsTeater" />
+                <ScalarProperty Name="PosterURL" ColumnName="PosterURL" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="SingerId" ColumnName="SingerId" />
+                <ScalarProperty Name="HallId" ColumnName="HallId" />
+                <ScalarProperty Name="ConcertTitle" ColumnName="ConcertTitle" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ConcertPrices">
+            <EntityTypeMapping TypeName="DatabaseModel.ConcertPrice">
+              <MappingFragment StoreEntitySet="ConcertPrices">
+                <ScalarProperty Name="HallPartId" ColumnName="HallPartId" />
+                <ScalarProperty Name="ToRow" ColumnName="ToRow" />
+                <ScalarProperty Name="TheRow" ColumnName="TheRow" />
+                <ScalarProperty Name="Prices" ColumnName="Prices" />
+                <ScalarProperty Name="ConcertId" ColumnName="ConcertId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ExceptionHandlers">
+            <EntityTypeMapping TypeName="DatabaseModel.ExceptionHandler">
+              <MappingFragment StoreEntitySet="ExceptionHandler">
+                <ScalarProperty Name="Code" ColumnName="Code" />
+                <ScalarProperty Name="InnerException" ColumnName="InnerException" />
+                <ScalarProperty Name="Message" ColumnName="Message" />
+                <ScalarProperty Name="HelpNote" ColumnName="HelpNote" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Halls">
+            <EntityTypeMapping TypeName="DatabaseModel.Hall">
+              <MappingFragment StoreEntitySet="Hall">
+                <ScalarProperty Name="Langitude" ColumnName="Langitude" />
+                <ScalarProperty Name="Latitude" ColumnName="Latitude" />
+                <ScalarProperty Name="Width" ColumnName="Width" />
+                <ScalarProperty Name="Length" ColumnName="Length" />
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Address" ColumnName="Address" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="HallParts">
+            <EntityTypeMapping TypeName="DatabaseModel.HallPart">
+              <MappingFragment StoreEntitySet="HallPart">
+                <ScalarProperty Name="ColumnCount" ColumnName="ColumnCount" />
+                <ScalarProperty Name="RowCount" ColumnName="RowCount" />
+                <ScalarProperty Name="HallId" ColumnName="HallId" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="PriceStyles">
+            <EntityTypeMapping TypeName="DatabaseModel.PriceStyle">
+              <MappingFragment StoreEntitySet="PriceStyle">
+                <ScalarProperty Name="Color" ColumnName="Color" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Profiles">
+            <EntityTypeMapping TypeName="DatabaseModel.Profile">
+              <MappingFragment StoreEntitySet="Profile">
+                <ScalarProperty Name="LastUpdatedDate" ColumnName="LastUpdatedDate" />
+                <ScalarProperty Name="PropertyValuesBinary" ColumnName="PropertyValuesBinary" />
+                <ScalarProperty Name="PropertyValuesString" ColumnName="PropertyValuesString" />
+                <ScalarProperty Name="PropertyNames" ColumnName="PropertyNames" />
+                <ScalarProperty Name="UserId" ColumnName="UserId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Roles">
+            <EntityTypeMapping TypeName="DatabaseModel.Role">
+              <MappingFragment StoreEntitySet="Role">
+                <ScalarProperty Name="Application_Id" ColumnName="Application_Id" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ShowTimes">
+            <EntityTypeMapping TypeName="DatabaseModel.ShowTime">
+              <MappingFragment StoreEntitySet="ShowTime">
+                <ScalarProperty Name="RecurrenceParentId" ColumnName="RecurrenceParentId" />
+                <ScalarProperty Name="RecurrenceRule" ColumnName="RecurrenceRule" />
+                <ScalarProperty Name="IsCanceled" ColumnName="IsCanceled" />
+                <ScalarProperty Name="ConcertId" ColumnName="ConcertId" />
+                <ScalarProperty Name="End" ColumnName="End" />
+                <ScalarProperty Name="Start" ColumnName="Start" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Singers">
+            <EntityTypeMapping TypeName="DatabaseModel.Singer">
+              <MappingFragment StoreEntitySet="Singer">
+                <ScalarProperty Name="ImageURL" ColumnName="ImageURL" />
+                <ScalarProperty Name="Image" ColumnName="Image" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TicketStatus">
+            <EntityTypeMapping TypeName="DatabaseModel.TicketStatu">
+              <MappingFragment StoreEntitySet="TicketStatus">
+                <ScalarProperty Name="CssClass" ColumnName="CssClass" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="DatabaseModel.User">
+              <MappingFragment StoreEntitySet="User">
+                <ScalarProperty Name="Phone" ColumnName="Phone" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="Application_Id" ColumnName="Application_Id" />
+                <ScalarProperty Name="IsAnonymous" ColumnName="IsAnonymous" />
+                <ScalarProperty Name="Comment" ColumnName="Comment" />
+                <ScalarProperty Name="LastModified" ColumnName="LastModified" />
+                <ScalarProperty Name="FailedPasswordAnswerAttemptWindowStart" ColumnName="FailedPasswordAnswerAttemptWindowStart" />
+                <ScalarProperty Name="FailedPasswordAnswerAttemptCount" ColumnName="FailedPasswordAnswerAttemptCount" />
+                <ScalarProperty Name="FailedPasswordAttemptWindowStart" ColumnName="FailedPasswordAttemptWindowStart" />
+                <ScalarProperty Name="FailedPasswordAttemptCount" ColumnName="FailedPasswordAttemptCount" />
+                <ScalarProperty Name="LastLockedOutDate" ColumnName="LastLockedOutDate" />
+                <ScalarProperty Name="IsLockedOut" ColumnName="IsLockedOut" />
+                <ScalarProperty Name="IsOnline" ColumnName="IsOnline" />
+                <ScalarProperty Name="LastPasswordChangedDate" ColumnName="LastPasswordChangedDate" />
+                <ScalarProperty Name="LastLoginDate" ColumnName="LastLoginDate" />
+                <ScalarProperty Name="LastActivityDate" ColumnName="LastActivityDate" />
+                <ScalarProperty Name="IsApproved" ColumnName="IsApproved" />
+                <ScalarProperty Name="PasswordAnswer" ColumnName="PasswordAnswer" />
+                <ScalarProperty Name="PasswordQuestion" ColumnName="PasswordQuestion" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Username" ColumnName="Username" />
+                <ScalarProperty Name="CreationDate" ColumnName="CreationDate" />
+                <ScalarProperty Name="Name" ColumnName="Name" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tickets">
+            <EntityTypeMapping TypeName="DatabaseModel.Ticket">
+              <MappingFragment StoreEntitySet="Ticket">
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="PersianDateShopping" ColumnName="PersianDateShopping" />
+                <ScalarProperty Name="PersianEnd" ColumnName="PersianEnd" />
+                <ScalarProperty Name="PersianStart" ColumnName="PersianStart" />
+                <ScalarProperty Name="ConcertId" ColumnName="ConcertId" />
+                <ScalarProperty Name="ChairId" ColumnName="ChairId" />
+                <ScalarProperty Name="TicketStatusId" ColumnName="TicketStatusId" />
+                <ScalarProperty Name="TimeShopping" ColumnName="TimeShopping" />
+                <ScalarProperty Name="BuyerId" ColumnName="BuyerId" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="Column" ColumnName="Column" />
+                <ScalarProperty Name="Row" ColumnName="Row" />
+                <ScalarProperty Name="UserLastName" ColumnName="UserLastName" />
+                <ScalarProperty Name="UserFirstName" ColumnName="UserFirstName" />
+                <ScalarProperty Name="SingerLastName" ColumnName="SingerLastName" />
+                <ScalarProperty Name="SingerFirstName" ColumnName="SingerFirstName" />
+                <ScalarProperty Name="HallName" ColumnName="HallName" />
+                <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+                <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+                <ScalarProperty Name="ConcertTitle" ColumnName="ConcertTitle" />
+                <ScalarProperty Name="End" ColumnName="End" />
+                <ScalarProperty Name="Start" ColumnName="Start" />
+                <ScalarProperty Name="ShowTimeId" ColumnName="ShowTimeId" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="TrackingCode" ColumnName="TrackingCode" />
+                <ScalarProperty Name="DateShopping" ColumnName="DateShopping" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TicketStatusTitle" ColumnName="TicketStatusTitle" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="UsersInRole" TypeName="DatabaseModel.UsersInRole" StoreEntitySet="UsersInRole">
+            <EndProperty Name="User">
+              <ScalarProperty Name="Id" ColumnName="User_Id" />
+            </EndProperty>
+            <EndProperty Name="Role">
+              <ScalarProperty Name="Id" ColumnName="Role_Id" />
+            </EndProperty>
+          </AssociationSetMapping>
+          <EntitySetMapping Name="NoSelections">
+            <EntityTypeMapping TypeName="DatabaseModel.NoSelection">
+              <MappingFragment StoreEntitySet="NoSelection">
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Advertises">
+            <EntityTypeMapping TypeName="DatabaseModel.Advertise">
+              <MappingFragment StoreEntitySet="Advertise">
+                <ScalarProperty Name="ImageURL" ColumnName="ImageURL" />
+                <ScalarProperty Name="Link" ColumnName="Link" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Payments">
+            <EntityTypeMapping TypeName="DatabaseModel.Payment">
+              <MappingFragment StoreEntitySet="Payment">
+                <ScalarProperty Name="RefNum" ColumnName="RefNum" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="BankId" ColumnName="BankId" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="TraceNo" ColumnName="TraceNo" />
+                <ScalarProperty Name="IsSuccess" ColumnName="IsSuccess" />
+                <ScalarProperty Name="State" ColumnName="State" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="TrackingCode" ColumnName="TrackingCode" />
+                <ScalarProperty Name="BuyerId" ColumnName="BuyerId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ConcertShowTimes">
+            <EntityTypeMapping TypeName="DatabaseModel.ConcertShowTime">
+              <MappingFragment StoreEntitySet="ConcertShowTime">
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="ConcertId" ColumnName="ConcertId" />
+                <ScalarProperty Name="ShowTimeId" ColumnName="ShowTimeId" />
+                <ScalarProperty Name="Subject" ColumnName="Subject" />
+                <ScalarProperty Name="HallName" ColumnName="HallName" />
+                <ScalarProperty Name="ConcertTitle" ColumnName="ConcertTitle" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ConcertTickets">
+            <EntityTypeMapping TypeName="DatabaseModel.ConcertTicket">
+              <MappingFragment StoreEntitySet="ConcertTicket">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="BuyerId" ColumnName="BuyerId" />
+                <ScalarProperty Name="ShowTimeId" ColumnName="ShowTimeId" />
+                <ScalarProperty Name="TrackingCode" ColumnName="TrackingCode" />
+                <ScalarProperty Name="BankName" ColumnName="BankName" />
+                <ScalarProperty Name="Time" ColumnName="Time" />
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="ticketSum" ColumnName="ticketSum" />
+                <ScalarProperty Name="TicketCount" ColumnName="TicketCount" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Mobile" ColumnName="Mobile" />
+                <ScalarProperty Name="LastName" ColumnName="LastName" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+        <DesignerProperty Name="UseLegacyProvider" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="8223d6a6a5c34e3b8e6f9d1dd50e008f" Name="Diagram1" ZoomLevel="53">
+        <EntityTypeShape EntityType="DatabaseModel.Application" Width="1.5" PointX="5.3981386634512516" PointY="14.542059577322593" />
+        <EntityTypeShape EntityType="DatabaseModel.Buyer" Width="1.5" PointX="7.30507015590792" PointY="10.937872176495322" />
+        <EntityTypeShape EntityType="DatabaseModel.BuyTicket" Width="1.5" PointX="2.3982917770735415" PointY="10.709786554197681" />
+        <EntityTypeShape EntityType="DatabaseModel.Chair" Width="1.5" PointX="3.68954885550288" PointY="8.0289592333272832" />
+        <EntityTypeShape EntityType="DatabaseModel.Concert" Width="1.5" PointX="6.5970610932433331" PointY="5.09907588600138" />
+        <EntityTypeShape EntityType="DatabaseModel.ConcertPrice" Width="1.5" PointX="11.250575462007232" PointY="4.5465100428771743" />
+        <EntityTypeShape EntityType="DatabaseModel.ExceptionHandler" Width="1.5" PointX="0.15339286818792711" PointY="7.3738567267422832" />
+        <EntityTypeShape EntityType="DatabaseModel.Hall" Width="1.5" PointX="4.5963048621063614" PointY="1.3413223928498674" />
+        <EntityTypeShape EntityType="DatabaseModel.HallPart" Width="1.5" PointX="11.125612802396349" PointY="24.670611691042133" />
+        <EntityTypeShape EntityType="DatabaseModel.PriceStyle" Width="1.5" PointX="8.2989175172051972" PointY="12.630025616209034" />
+        <EntityTypeShape EntityType="DatabaseModel.Profile" Width="1.5" PointX="10" PointY="2.25" />
+        <EntityTypeShape EntityType="DatabaseModel.Role" Width="1.5" PointX="6.8027675369767326" PointY="10.814786528616578" />
+        <EntityTypeShape EntityType="DatabaseModel.ShowTime" Width="1.5" PointX="5.0996476919854281" PointY="25.042242583372744" />
+        <EntityTypeShape EntityType="DatabaseModel.Singer" Width="1.5" PointX="10.558871520012092" PointY="29.2516532676535" />
+        <EntityTypeShape EntityType="DatabaseModel.TicketStatu" Width="1.5" PointX="7.875" PointY="1.5" />
+        <EntityTypeShape EntityType="DatabaseModel.User" Width="1.5" PointX="1.3333284823844809" PointY="31.82279445222709" />
+        <EntityTypeShape EntityType="DatabaseModel.Ticket" Width="1.5" PointX="3.25" PointY="17.125" />
+        <AssociationConnector Association="DatabaseModel.FK_Role_Application" />
+        <AssociationConnector Association="DatabaseModel.FK_User_Application" />
+        <AssociationConnector Association="DatabaseModel.FK_Buyer_Buyer" />
+        <AssociationConnector Association="DatabaseModel.FK_BuyTicket_Buyer" />
+        <AssociationConnector Association="DatabaseModel.FK_BuyTicket_Chair" />
+        <AssociationConnector Association="DatabaseModel.FK_BuyTicket_ShowTime" />
+        <AssociationConnector Association="DatabaseModel.FK_BuyTicket_TicketStatus" />
+        <AssociationConnector Association="DatabaseModel.FK_Chair_HallPart" />
+        <AssociationConnector Association="DatabaseModel.FK_Concert_Hall" />
+        <AssociationConnector Association="DatabaseModel.FK_Concert_Singer" />
+        <AssociationConnector Association="DatabaseModel.FK_ConcertPrices_Concert" />
+        <AssociationConnector Association="DatabaseModel.FK_ShowTime_Concert" />
+        <AssociationConnector Association="DatabaseModel.FK_ConcertPrices_HallPart" />
+        <AssociationConnector Association="DatabaseModel.FK_HallPart_Hall" />
+        <AssociationConnector Association="DatabaseModel.FK_Profile_User" />
+        <AssociationConnector Association="DatabaseModel.UsersInRole" />
+        <EntityTypeShape EntityType="DatabaseModel.NoSelection" Width="1.5" PointX="1.0103870187934427" PointY="15.917642511389051" />
+        <EntityTypeShape EntityType="DatabaseModel.Advertise" Width="1.5" PointX="0.834120529160891" PointY="13.423199063829705" />
+        <EntityTypeShape EntityType="DatabaseModel.Payment" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="DatabaseModel.ConcertShowTime" Width="1.5" PointX="7.125" PointY="19.125" />
+        <EntityTypeShape EntityType="DatabaseModel.ConcertTicket" Width="1.5" PointX="8.850224882760191" PointY="8.2045402118026" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
